@@ -5,7 +5,7 @@ This repository contains the codes referring to the paper "Decision support syst
 ## Overview 
 ++ description of main workflow ++
 
-![Graphical abstract](images/graphical_abstract.png)
+![Graphical abstract](images/graphical_abstract.jpg)
 
 For more information, please refer to the [paper]().
 
