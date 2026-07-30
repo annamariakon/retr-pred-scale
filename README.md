@@ -23,18 +23,20 @@ conda activate energy_prediction_scale_env
 
 ### 3. Install the dependencies
 
+```
 pip install ipykernel
 pip install geomeppy==0.11.8
 pip install geopandas==1.0.1
 pip install torch==2.13.0
 pip install scikit-learn
 pip install wandb
+```
 
 You can find the full list of dependencies in *requirements.txt*.
 
 ## Code overview
 
-The sequence of functions for collecting data, assessing the performance indicators and produce the final outcomes is provided in the *initial_file_running_functions.ipynb*. Particularly, the first part of the assessment includes the general function (*gen_function_make_geometry_idf_sample_initial.py*), which serves to retrieve the building data from the open-source GIS databases and create the initial idf file that contains only the building geometry. Subsequently, some surfaces are assigned as adiabatic. The number of adiabatic surfaces per floor is determined based on the archetype of the building, and the surfaces with the largest areas are assigned first. The probabilistic distributions for type and age of (i) envelope insulation (wall, roof, floor), (ii) window glazing, (iii) heating and cooling are initialized based on the archetype, construction year and energy label and samples are drawn to create the sets of variables for the simulations.
+The first part of the assessment serves to retrieve the building data from the open-source GIS databases and create the initial idf file that contains only the building geometry. Subsequently, some surfaces are assigned as adiabatic. The number of adiabatic surfaces per floor is determined based on the archetype of the building, and the surfaces with the largest areas are assigned first. The probabilistic distributions for type and age of (i) envelope insulation (wall, roof, floor), (ii) window glazing, (iii) heating and cooling are initialized based on the archetype, construction year and energy label and samples are drawn to create the sets of variables for the simulations.
 
 The assessment for all sets of variables can be conducted following two paths; (a) EnergyPlus path and (b) Surrogate model path. Regarding the EnergyPlus path, enriched idf files are created for each of the sampled set of variables. Different idf files are created for heating and cooling since the assessment happens for different periods (Heating season: October to March, Cooling season: April to September). After running the simulations, the output values are stored in a Pandas DataFrame with one row corresponding to one sample.
 Regarding the surrogate path, the performance assessment can be conducted for the year that the samples were drawn or probabilistically for the building lifetime, accounting for time-dependent degradation and failure of mechanical systems. Moreover, the long-term probabilistic assessment can be combined with retrofit actions in specific years and can be upscaled for a whole neighborhood or district.
@@ -103,8 +105,11 @@ This material is based upon work supported by the DE-CIST project under the ICLE
 The repository is inspired by [jax-imprl](https://github.com/omniscientoctopus/jax-imprl) and [AmsterTime](https://github.com/seyrankhademi/AmsterTime).
 
 [1] Nieman De Raadgevende Ingenieurs, "Rapport standaard en streefwaardes bestaande woningbouw," 2021.
+
 [2] R. Peters, B. Dukai, S. Vitalis, J. Van Liempt and J. Stoter, "Automated 3D Reconstruction of LoD2 and LoD1 Models for All 10 Million Buildings of the Netherlands," Photogrammetric Engineering & Remote Sensing, vol. 88, no. 3, pp. 165-170, 2022. 
+
 [3] C.B.v.d.S. (Ministerie van Volkshuisvesting en Ruimtelijke Ordening (VRO)), "Woononderzoek Nederland 2024 - woningmarktmodule- release 1.1," 2025.
+
 [4] "Climate-OneBuilding.Org," [Online]. Available: https://climate.onebuilding.org/. [Accessed 13 03 2025].
 
 ## Citation
