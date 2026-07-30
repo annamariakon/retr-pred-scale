@@ -99,10 +99,12 @@ Retrofit_prediction_scale
 The notebook *initial_file_running_functions.ipynb* serves to guide you through the performance assessment process.
 
 ## Acknowledgements 
-The building energy performance simulations are conducted using [EnergyPlus](https://energyplus.net/) and the respective input data files (.idf) are generated using [Eppy](https://github.com/santoshphilip/eppy) and [GeomEppy](https://github.com/jamiebull1/geomeppy) Python libraries. The code is using data from Nieman report [1] (provided by Gemeente Rotterdam) and open-source data from 3DBAG [2]. The probabilities of having specific material properties and equipment type are calculated based on data from the Woon database [3]. Lastly, the TMY data are extracted from climateonebuilding.org [4].
 
 This material is based upon work supported by the DE-CIST project under the ICLEI Action Fund, the MultiCare EU project (GA no. 101123467), and the TU Delft AI Labs program.
 The repository is inspired by [jax-imprl](https://github.com/omniscientoctopus/jax-imprl) and [AmsterTime](https://github.com/seyrankhademi/AmsterTime).
+
+The building energy performance simulations are conducted using [EnergyPlus](https://energyplus.net/) and the respective input data files (.idf) are generated using [Eppy](https://github.com/santoshphilip/eppy) and [GeomEppy](https://github.com/jamiebull1/geomeppy) Python libraries. The code is using data from Nieman report [1] (provided by Gemeente Rotterdam) and open-source data from 3DBAG [2]. The probabilities of having specific material properties and equipment type are calculated based on data from the Woon database [3]. Lastly, the TMY data are extracted from climateonebuilding.org [4].
+
 
 [1] Nieman De Raadgevende Ingenieurs, "Rapport standaard en streefwaardes bestaande woningbouw," 2021.
 
