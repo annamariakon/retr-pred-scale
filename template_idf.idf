@@ -1,0 +1,14 @@
+!- Windows Line endings 
+
+Version,
+    23.1;                     !- Version Identifier
+
+Timestep,
+    6;                        !- Number of Timesteps per Hour
+
+GlobalGeometryRules,
+    UpperLeftCorner,          !- Starting Vertex Position
+    Counterclockwise,         !- Vertex Entry Direction
+    Relative,                 !- Coordinate System
+    Relative,                 !- Daylighting Reference Point Coordinate System
+    Relative;                 !- Rectangular Surface Coordinate System
