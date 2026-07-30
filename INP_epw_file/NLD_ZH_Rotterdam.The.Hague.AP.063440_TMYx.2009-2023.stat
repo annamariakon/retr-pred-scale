@@ -1,7 +1,7 @@
  -EnergyPlus Weather Converter Version 2024.06.15
  Statistics for NLD_ZH_Rotterdam.The.Hague.AP.063440_TMYx.2009-2023
  Location -- Rotterdam.The.Hague.AP ZH NLD  
-      {N 51° 57.64'} {E 4° 26.81'} {GMT +1.0 Hours}
+      {N 51Â° 57.64'} {E 4Â° 26.81'} {GMT +1.0 Hours}
  Elevation --     5 m below sea level
  Standard Pressure at Elevation -- 101379 Pa
  Data Source -- SRC-TMYx
@@ -29,15 +29,15 @@
  - for use in heating/cooling load calculations.
 
     	DesignStat	Coldest Month	Heating DB		Humidification DP/MC						Coldest Month WS/MCD				MCWS/PCWD to 99.6% D		Wind Shelter Factor	
-    	Units	{}	{°C}	{°C}	{°C}	{}	{°C}	{°C}	{}	{°C}	{m/s}	{°C}	{m/s}	{°C}	{m/s}	{deg}	{}	
+    	Units	{}	{Â°C}	{Â°C}	{Â°C}	{}	{Â°C}	{Â°C}	{}	{Â°C}	{m/s}	{Â°C}	{m/s}	{Â°C}	{m/s}	{deg}	{}	
     	Heating	1	-5.9	-3.9	-9.7	1.6	-4.5	-7.3	2.0	-3.0	14.6	9.2	13.3	9.6	3.1	60	0.581
 
     	DesignStat	HottestMonth		Cooling DB/MCWB						Evaporation WB/MCDB						MCWS/PCWD to 0.4% DB		Dehumidification DP/									Enthalpy/MCDB						Extreme Max WB	
-    	Units	{}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{m/s}	{deg}	{°C}	{}	{°C}	{°C}	{}	{°C}	{°C}	{}	{°C}	{kJ/kg}	{°C}	{kJ/kg}	{°C}	{kJ/kg}	{°C}	{°C}	
+    	Units	{}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{m/s}	{deg}	{Â°C}	{}	{Â°C}	{Â°C}	{}	{Â°C}	{Â°C}	{}	{Â°C}	{kJ/kg}	{Â°C}	{kJ/kg}	{Â°C}	{kJ/kg}	{Â°C}	{Â°C}	
     	Cooling	7	8.2	28.4	20.0	26.1	19.2	24.2	18.2	21.0	26.5	20.0	24.6	19.0	23.0	3.9	100	19.1	13.9	23.2	18.2	13.1	22.0	17.4	12.4	21.0	60.7	26.6	57.0	24.8	53.9	23.1	25.3
 
     	DesignStat	Extreme Annual WS			Extreme Annual DB				n-Year Return Period							
-    	Units	{m/s}	{m/s}	{m/s}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}	{°C}
+    	Units	{m/s}	{m/s}	{m/s}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}	{Â°C}
     	Extremes	11.8	10.4	9.2	-8.7	32.3	3.0	1.7	-10.9	33.6	-12.6	34.6	-14.3	35.6	-16.5	36.8
 
  - Monthly Optical Sky Depth Beam (taub) and Diffuse (taud)
@@ -48,14 +48,14 @@
  	                    taub	 - Clear Sky Optical Depth for Beam Irradiance
  	                    taud	 - Clear Sky Optical Depth for Diffuse Irradiance
 
- - Monthly Solar Irradiance Wh/m² (noon on 21st of month)
+ - Monthly Solar Irradiance Wh/mÂ² (noon on 21st of month)
  	               ib (beam)	  642	  740	  784	  811	  824	  832	  816	  803	  776	  715	  620	  576	
  	            id (diffuse)	   65	   87	  113	  131	  132	  129	  129	  117	  100	   81	   64	   57	
 
  	                      ib	 - Clear Sky Noon Beam Normal Irradiance on 21st Day
  	                      id	 - Clear Sky Noon Diffuse Horizontal Irradiance on 21st Day
 
- - Average Monthly Mean Daily All-Sky Radiation Wh/m²
+ - Average Monthly Mean Daily All-Sky Radiation Wh/mÂ²
  	                Avg Rad 	  710	 1400	 2600	 4210	 5090	 5460	 5150	 4350	 3160	 1820	  830	  540	
 
  - Monthly Drybulb and Mean Coincident Wetbulb Temperatures [C]
@@ -128,7 +128,7 @@
     -    4.3 annual (standard) wind speed
 
  - Climate Zone "4A" (ASHRAE Standard 169-2021)
- - Mixed - Humid, Probable Köppen classification=Cfa/Dfa, Humid Subtropical/Humid Continental (Warm Summer)
+ - Mixed - Humid, Probable KÃ¶ppen classification=Cfa/Dfa, Humid Subtropical/Humid Continental (Warm Summer)
  - Calculated Climate Zone based on algorithm from indicated standard (169-2021)
 
  ========================= Source Weather Data Statistics =========================
@@ -535,7 +535,7 @@
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	Average 	0.112	0.112	0.126	0.141	0.140	0.140	0.140	0.140	0.136	0.124	0.111	0.103	
 
- - Monthly Statistics for Solar Radiation  (Direct Normal, Diffuse, Global Horizontal) [Wh/m²]
+ - Monthly Statistics for Solar Radiation  (Direct Normal, Diffuse, Global Horizontal) [Wh/mÂ²]
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	Direct Avg 	1329 	2496 	3303 	5176 	5562 	5385 	5690 	5383 	3632 	2614 	1551 	974  	
 
@@ -546,13 +546,13 @@
 
  	Global Avg 	742  	1558 	2889 	4643 	5588 	5763 	5483 	4916 	3236 	1899 	918  	555  	
 
- - Maximum Direct Normal Solar of 10291 Wh/m² on Jun 29
+ - Maximum Direct Normal Solar of 10291 Wh/mÂ² on Jun 29
 
- - Global Horizontal Solar Radiation  1126 kWh/m²-yr
- - Direct Normal Solar Radiation  1269 kWh/m²-yr
- - Diffuse Horizontal Solar Radiation   468 kWh/m²-yr
+ - Global Horizontal Solar Radiation  1126 kWh/mÂ²-yr
+ - Direct Normal Solar Radiation  1269 kWh/mÂ²-yr
+ - Diffuse Horizontal Solar Radiation   468 kWh/mÂ²-yr
 
- - Average Hourly Statistics for Direct Normal Solar Radiation [Wh/m²]
+ - Average Hourly Statistics for Direct Normal Solar Radiation [Wh/mÂ²]
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	 0:01- 1:00	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	
  	 1:01- 2:00	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	
@@ -581,7 +581,7 @@
  	 Max Hour*	  13 	  12 	  12 	  11*	  11*	  13 	  12 	  14 	  13 	  13 	  13 	  13 	
  	 Min Hour  	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	
 
- - Average Hourly Statistics for Diffuse Horizontal Solar Radiation [Wh/m²]
+ - Average Hourly Statistics for Diffuse Horizontal Solar Radiation [Wh/mÂ²]
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	 0:01- 1:00	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	
  	 1:01- 2:00	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	
@@ -610,7 +610,7 @@
  	 Max Hour  	  13 	  13 	  13 	  13 	  13 	  12 	  13 	  12 	  13 	  13 	  12 	  13 	
  	 Min Hour  	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	   1 	
 
- - Average Hourly Statistics for Global Horizontal Solar Radiation [Wh/m²]
+ - Average Hourly Statistics for Global Horizontal Solar Radiation [Wh/mÂ²]
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	 0:01- 1:00	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	
  	 1:01- 2:00	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	    0	
@@ -646,11 +646,11 @@
 
  - Estimated Sunshine Hours per year  1311
 
- - Monthly Statistics for Horizontal Infrared Radiation Intensity from Sky [Wh/m²]
+ - Monthly Statistics for Horizontal Infrared Radiation Intensity from Sky [Wh/mÂ²]
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	IR Sky Avg 	7143 	7096 	7121 	7294 	8009 	8573 	8678 	8607 	8431 	8047 	7607 	7536 	
 
- - Average Hourly Statistics for Horizontal Infrared Radiation Intensity from Sky [Wh/m²]
+ - Average Hourly Statistics for Horizontal Infrared Radiation Intensity from Sky [Wh/mÂ²]
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	 0:01- 1:00	  292	  295	  294	  298	  324	  347	  352	  351	  343	  328	  313	  309	
  	 1:01- 2:00	  297	  296	  295	  293	  323	  347	  351	  348	  341	  326	  314	  309	
@@ -689,7 +689,7 @@
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	Global Avg 	83   	172  	321  	507  	614  	636  	605  	547  	365  	214  	105  	63   	
 
- - Monthly Statistics for Zenith Luminance [kCD/m²] **
+ - Monthly Statistics for Zenith Luminance [kCD/mÂ²] **
  	           	Jan	Feb	Mar	Apr	May	Jun	Jul	Aug	Sep	Oct	Nov	Dec	
  	ZenLum Avg 	33   	44   	69   	74   	80   	87   	72   	70   	67   	52   	37   	29   	
  	**Missed Hrs 	    1	     	    5	    3	     	    1	     	    5	    2	     	     	     	
@@ -800,14 +800,14 @@
  	 <=-5      	     	     	  0.3	  0.2	     	     	     	     	     	     	     	     	
  	 <=-10     	     	     	     	     	     	     	     	     	     	     	     	     	
 
- - Climate type "Cfb" (Köppen classification)**
- - Marine west coastal (warm summer, mild winter, rain all year, lat. 35-60°N)
+ - Climate type "Cfb" (KÃ¶ppen classification)**
+ - Marine west coastal (warm summer, mild winter, rain all year, lat. 35-60Â°N)
  - 
- - **Note that the Köppen classification shown here is derived from the ASHRAE design condition data.
+ - **Note that the KÃ¶ppen classification shown here is derived from the ASHRAE design condition data.
  -   It "should" be indicative of the long term climate for this location.
 
  - Climate Zone "4A" (ASHRAE Standard 169-2021)
- - Mixed - Humid, Probable Köppen classification=Cfa/Dfa, Humid Subtropical/Humid Continental (Warm Summer)
+ - Mixed - Humid, Probable KÃ¶ppen classification=Cfa/Dfa, Humid Subtropical/Humid Continental (Warm Summer)
  - 
  - **Note that the ASHRAE Climate Zone shown here is derived from the ASHRAE design condition data.
  -   It "should" be indicative of the long term climate for this location.
