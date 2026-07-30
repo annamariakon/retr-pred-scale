@@ -1,9 +1,8 @@
-# A repository for building-level energy assessment at scale considering material, equipment & weather uncertainties
+# A repository for uncertainty-aware building-level performance assessment at scale under diverse retrofit scenarios
 
-This repository contains the codes referring to the paper "Decision support system for urban energy retrofit planning under uncertainties". The code provides building-level assessment of energy demand for multiple buildings at a time considering uncertainties related to material and equipment performance and weather data under different scenarios. The final plots display the distribution over possible energy demand per building as well as aggregated results at district level. 
+This repository contains the implementation code for the methodological framework described in the paper "A systematic framework for urban-scale building energy and thermal discomfort assessment under uncertainty: Applications to urban retrofit planning". The code allows for assessment of diverse building performance indicators (i.e. energy, thermal discomfort, environmental impact); (i) probabilistically along the building lifetime, (ii) at neighborhood scale, while maintaining building-level resolution, and (iii) as cumulative sum for the whole neighborhood, with the respective confidence intervals. The outcomes can provide targeted building-level insights that can support policymakers in developing retrofit planning strategies and achieving building-level translation of neighborhood-scale policies.
 
-## Overview 
-++ description of main workflow ++
+The performance assessment can be conducted either by connecting to EnergyPlus simulation engine or through using the surrogate models (neural networks & regression models) that are trained to predict the performance indicators. In both cases, epistemic uncertainties, arising from data unavailability, and aleatoric uncertainties, associated with material degradation and mechanical system failures, are considered in the assessment. The synthetic database used for training the surrogate models is also provided in the repository along with the respective Jupyter notebooks used for training.
 
 ![Graphical abstract](images/graphical_abstract.jpg)
 
@@ -18,89 +17,95 @@ In case you want to perform the energy assessment using Energyplus, you must hav
 ### 2. Create the virtual environment
 
 ```
-conda create --name energy_prediction_scale_env -y python==3.9
+conda create --name retr_pred_scale -y python==3.10
 conda activate energy_prediction_scale_env
 ```
+
 ### 3. Install the dependencies
 
-### 4. (optional) Test the installation
+pip install ipykernel
+pip install geomeppy==0.11.8
+pip install geopandas==1.0.1
+pip install torch==2.13.0
+pip install scikit-learn
+pip install wandb
 
-## Code
+You can find the full list of dependencies in *requirements.txt*.
+
+## Code overview
+
+The sequence of functions for collecting data, assessing the performance indicators and produce the final outcomes is provided in the *initial_file_running_functions.ipynb*. Particularly, the first part of the assessment includes the general function (*gen_function_make_geometry_idf_sample_initial.py*), which serves to retrieve the building data from the open-source GIS databases and create the initial idf file that contains only the building geometry. Subsequently, some surfaces are assigned as adiabatic. The number of adiabatic surfaces per floor is determined based on the archetype of the building, and the surfaces with the largest areas are assigned first. The probabilistic distributions for type and age of (i) envelope insulation (wall, roof, floor), (ii) window glazing, (iii) heating and cooling are initialized based on the archetype, construction year and energy label and samples are drawn to create the sets of variables for the simulations.
+
+The assessment for all sets of variables can be conducted following two paths; (a) EnergyPlus path and (b) Surrogate model path. Regarding the EnergyPlus path, enriched idf files are created for each of the sampled set of variables. Different idf files are created for heating and cooling since the assessment happens for different periods (Heating season: October to March, Cooling season: April to September). After running the simulations, the output values are stored in a Pandas DataFrame with one row corresponding to one sample.
+Regarding the surrogate path, the performance assessment can be conducted for the year that the samples were drawn or probabilistically for the building lifetime, accounting for time-dependent degradation and failure of mechanical systems. Moreover, the long-term probabilistic assessment can be combined with retrofit actions in specific years and can be upscaled for a whole neighborhood or district.
+
+The outputs can be visualized either for (i) a single building, showing the mean trends and characteristic realizations over building lifetime, or (ii) for the neighborhood, producing maps per output variable that maintain building-level resolution and histograms showing cumulative sums and confidence intervals per year.
+
+![Github abstract](images/github_abstract.jpg)
+
+The EnergyPlus path was used to produce the synthetic database that was used for the training of the surrogate models. The design of the database and all related information are provided on the paper. Both the synthetic database and the notebooks used for training are provided in this repository.
+
+![Geometric properties for all data points included in the synthetic database](images/input_geometric.jpg)
+
+![Range of output values for all data points included in the synthetic database](images/output_ranges.jpg)
 
 Below you can find the directory structure along with a short explanation of the files:
 
 ```
-Energy_prediction_scale
-├── README.md
-├── building_class:
-|   ├── building_class.py initiate the building class
-|   ├── getdata_functions_building.py: extract building level data (Nieman database & open-source BAG data)
-|   ├── getdata_functions_apartment.py: modify geometric data in the case of an apartment
-|   ├── create_idf_file.py: initiate the idf file
-|   ├── modify_idf_for_simulation.py: apply Energyplus properties 
-|   ├── get_retrofit_data.py: Modify material & equipment information according to the retrofits
-├── dbn:
-|   ├── woon_functions.py: Functions to assign material & equipment properties based on probablities from WoonData
-|   ├── degradation_over_years.py: Functions to modify material & equipment properties according to long-term degradation
-|   ├── climate_change.py: Functions to assign weather data according to climate change probabilities
-|   ├── run_energyplus.py: Building energy assessment using EnergyPlus
-|   ├── run_nn.py: Building energy assessment via NN
-├── run_simulations_batches:
-|   ├── run_energyplus_batch.py: Batch energy assessment using parallel processing in EnergyPlus
-|   ├── run_nn_batch.py: Batch energy assessment via NN
-├── decision_support:
-|   ├── visualize_data.py: script to visualize the results at neighborhood level
-├── files:
-|   ├── nieman_data.csv: Database with detailed information per building in Rotterdam
-|   ├── initial_woon_probs.npz: Probabilities of having insulation & equipment type given the archetype, construction year and energy label
-|   ├── transitions.npz: Time-dependent transition probabilities (insulation & equipment efficiency)
-|   ├── retrofits.csv: Possible retrofit options
-|   ├── action_costs.csv: Costs associated with each retrofit
-|   ├── blocks_kralingseveer.csv: BAG IDs belonging to each building block in Kralingseveer
-|   ├── kralingseveer.shp: Shape file containing the building boundaries for Kralingseveer neighborhood
-|   ├── bags_training.csv: 10k BAG IDs randomly selected to produce synthetic data and use for training the NN
-|   ├── template.idf: Empty idf template
-├── run_surrogate_files:
-|   ├── one_hot_encoder_archetype.joblib
-|   ├── surrogate_heating_cooling_pth
-|   ├── input_scaler.pkl
-|   ├── output_scaler.pkl
-├── epw_file:
-    ├── TMY_file.epw: Typical Meteorological Year file referring to weather data from the period 2009-2023 in Rotterdam, NL
-    ├── SSP345_file.epw: Morphed TMY file corresponding to SSP scenario 3-4.5
-    ├── SSP585_file.epw: Morphed TMY file corresponding to SSP scenario 5-8.5
+Retrofit_prediction_scale
+├── Bash files: Files to run multiple simulations in DelftBlue using both the EnergyPlus and the surrogate path
+├── INP_epw_file: Folder containing the weather data in epw form
+├── INP_idf_functions:
+	├── create_idf_file.py: Create idf containing building geometry
+	├── dbn_functions2.py: Functions to initialize probabilistic distributions and sample 
+	├── get_retrofit_data2.py: Get initial values per archetype, update construction materials in the idf
+	├── getdata_functions_apartment.py: Modify the geometric data in the case that the unit under evaluation is an apartment
+	├── getdata_functions_building.py: Retrieve building information from open GIS databases and post-process
+	├── modify_idf_for_simulation2.py: Functions to create all necessary idf objects for the enriched idf.
+	├── woon_functions_distr2.py: Supporting functions to compute the initial probabilistic distributions conditioned on the building archetype, construction year and energy label
+├── INP_transitions_initial_probs:
+	├── 09_12_2025_degrad_prob_ins.npz: Transition matrices for insulation ageing per year, computed based on data grom the Gamma distributions
+	├── 09_12_2025_init_ageing_factor_ins.npz: Probabilities of initial ageing of insulation based on the ageing year
+	├── 12_05_2026_probs_deg_HVAC70.npz: Survival probabilities per year for gas boiler, heat pump and air conditioning, computed based on data from Weibull distributions
+	├── 20_7_2026_initial_probs.npz: Initial probabilities for all combinations of building archetype, construction year and energy label as computed from Woon database.
+├── OUT_functions:
+├── output_predict2.py: Main function to connect to the neural networks and regression models for prediction
+├── OUT_models: Neural networks and regression models to compute the output variables (Models, Input & Output scalers & Meta data)
+├── simulation_files: Main folder to save idfs upon creation & outputs from EnergyPlus simulations
+├── training: Synthetic database and Jupyter notebooks used for training
+├── ep_function_make_enriched_idf.py: Function to create the enriched idf with material & system properties
+├── ep_function_read_output.py: Function to read the output from the EnergyPlus simulations
+├── ep_function_run_simulations.py: Function to run the EnergyPlus simulations
+├── ep_nieman_tudelft_18_10.csv: Input data from Nieman report for all buildings in Rotterdam
+├── gen_building_class.py: Building class and associated functions
+├── gen_function_make_geometry_idf_sample_initial.py: Function to create the initial geometric idf, define initial probabilistic distributions per building & sample
+├── initial_file_running_functions.ipynb: Main file to run & conduct all assessments
+├── kralingseveer_buildings_27_2.shp: QGIS files for Kralingseveer neighborhood (to be used for the creation of the maps)
+├── …
+├── pands_kralingseveer.csv: BAG Pand IDs & Building footprint coordinates for all buildings in Kralingseveer neighborhoos
+├── running_means_limit.csv: .csv file with limits for maximum acceptable interior temperature
+├── surr_function_make_input_vector_and_predict_over_time.py: Function to perform the assessment of all performance indicators over the building lifetime
+├── surr_function_make_input_vector_and_predict.py: Function to perform the assessment of all performance indicators for single year
+├── template_idf.idf: Empty idf file to be used as base for the idf generation
+├── vis_function_building_assessment_longterm.py: Function to visualize the probabilistic assessment of all performance indicators over the building lifetime
+├── vis_function_cumulative_sums.py: Function to visualize the cumulative sum for the whole neighborhood per year with confidence intervals
+├── vis_function_neighborhood_maps.py: Function to produce neighborhood maps showing the assessment of all performance indicators with building-level resolution
 ```
 
 ## How to run the energy assessment
 
-The two main files to perform the energy assessment are:
-- `run_energyplus.py`: Building energy assessment using EnergyPlus
-- `run_nn.py`: Building energy assessment via NN
-
-Upon opening the file, the user is asked to provide the BAG Adres ID which can be retrieved for each building address from https://bagviewer.kadaster.nl/lvbag/bag-viewer. If the archetype and construction year for the given BAG ID are not available in the databases, then the user will be asked to provide them manually. If the energy label is not available, then the initial material properties and equipment availability will be assigned based on the total probability mass over all energy labels for a given archetype and construction year. The user is also asked to provide a retrofit action (do-nothing or specific retrofit packeage). The EnergyPlus code can be used for small number of simulations, since it provides estimations with higher fidelity but in the expense of larger computational time. In contrast, the neural network provides faster assessments and can be used in combination with optimization algorithms to identify effective retrofit strategies at neighborhood level.
-
-## Results (Decision support for retrofit planning)
-
-The final outcome is a map of heating and cooling demand per building at district level. Given the uncertainty ranges, the map does not provide only deterministic values but a distribution of possible energy outcomes as well as the probability that the whole neighborhood exceeds a specific energy target. This can then be used by policy makers to evaluate the outcome and the associated risk given different retrofit scenarios. Below there are characteristic plots based on different baselines. For detailed discussion of results, you can look at the [paper]().
-
-![Plot showing the distribution of energy outcome for different baselines](images/plots_neighborhood.png)
-
-## Training
-
-The neural network is trained based on synthetic data produced by EnergyPlus using the batch energy assessment via parallel processing. 10k BAG IDs corresponding to all possible archetypes are randomly selected from the Rotterdam building stock. Different retrofit packages are created through sampling from uniform distributions corresponding to the possible ranges of material properties, infiltration, and equipment capacity and efficiency. The values of the basic input features and energy ranges are shown in the following image.
-
-![Plots showing the ranges of input features and energy outcomes](images/heating_cooling.png)
-
-The neural network architecture consists of an input layer with 32 features, two hidden layers with 64 neurons each, and an output layer with two outputs. All layers are fully connected, and the hyperparameters are tuned using grid search.
-
-![Plot showing training efficiency](images/errors.png)
+The notebook *initial_file_running_functions.ipynb* serves to guide you through the performance assessment process.
 
 ## Acknowledgements 
-The building energy performance simulations are conducted using [EnergyPlus](https://energyplus.net/) and the respective input data files (.idf) are generated using [Eppy](https://github.com/santoshphilip/eppy) and [GeomEppy](https://github.com/jamiebull1/geomeppy) Python libraries. The code is using data from Nieman report (provided by Gemeente Rotterdam) and open-source 3DBAG data (provided via). The probabilities of having specific material properties and equipment type are calculated based on data from the Woon database (provided by DANS institute). Lastly, the TMY data are extracted from climateonebuilding.org and are morphed according to future climate scenarios using the future weather generator from (Rodriguez et al., 2023). 
-
-The repository is inspired by [AmsterTime](https://github.com/seyrankhademi/AmsterTime) and [jax-imprl](https://github.com/omniscientoctopus/jax-imprl).
+The building energy performance simulations are conducted using [EnergyPlus](https://energyplus.net/) and the respective input data files (.idf) are generated using [Eppy](https://github.com/santoshphilip/eppy) and [GeomEppy](https://github.com/jamiebull1/geomeppy) Python libraries. The code is using data from Nieman report [1] (provided by Gemeente Rotterdam) and open-source data from 3DBAG [2]. The probabilities of having specific material properties and equipment type are calculated based on data from the Woon database [3]. Lastly, the TMY data are extracted from climateonebuilding.org [4].
 
 This material is based upon work supported by the DE-CIST project under the ICLEI Action Fund, the MultiCare EU project (GA no. 101123467), and the TU Delft AI Labs program.
+The repository is inspired by [jax-imprl](https://github.com/omniscientoctopus/jax-imprl) and [AmsterTime](https://github.com/seyrankhademi/AmsterTime).
+
+[1] Nieman De Raadgevende Ingenieurs, "Rapport standaard en streefwaardes bestaande woningbouw," 2021.
+[2] R. Peters, B. Dukai, S. Vitalis, J. Van Liempt and J. Stoter, "Automated 3D Reconstruction of LoD2 and LoD1 Models for All 10 Million Buildings of the Netherlands," Photogrammetric Engineering & Remote Sensing, vol. 88, no. 3, pp. 165-170, 2022. 
+[3] C.B.v.d.S. (Ministerie van Volkshuisvesting en Ruimtelijke Ordening (VRO)), "Woononderzoek Nederland 2024 - woningmarktmodule- release 1.1," 2025.
+[4] "Climate-OneBuilding.Org," [Online]. Available: https://climate.onebuilding.org/. [Accessed 13 03 2025].
 
 ## Citation
 The source code in this repository is released under the MIT License. If you would like to refer to our work, please consider citing:
