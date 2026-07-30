@@ -10,19 +10,20 @@ import json
 
 from sklearn.decomposition import PCA
 
-
 """Querying information at building unit level from the Nieman database."""
 def getNieman_data(bag_adres_id, source_path):
 
     nieman_data = pd.read_csv(source_path)
     building_data = nieman_data[nieman_data['BAG Adres ID'] == bag_adres_id] # querying the data for the specific building unit
 
-    bag_pand_id = building_data['BAG Pand ID'].values[0]
-    n_archetype = building_data['Nieman Typologie'].values[0]
-    n_num_floor = int(building_data['Aantal Bouwlagen'].values[0])
-    n_total_floor_area = building_data['Oppervlakte'].values[0]
+    bag_pand_id = building_data['BAG Pand ID'].values[0] 
+    n_archetype = building_data['Nieman Typologie'].values[0] if pd.notna(building_data['Nieman Typologie'].values[0]) else 0
+    n_building_year = int(building_data['Oorspronkelijk Bouwjaar'].values[0]) if pd.notna(building_data['Oorspronkelijk Bouwjaar'].values[0]) else 0
+    n_energy_label = building_data['Energie Label'].values[0] if pd.notna(building_data['Energie Label'].values[0]) else 0
+    n_num_floor = int(building_data['Aantal Bouwlagen'].values[0]) if pd.notna(building_data['Aantal Bouwlagen'].values[0]) else 1
+    n_total_floor_area = building_data['Oppervlakte'].values[0] if pd.notna(building_data['Oppervlakte'].values[0]) else 0
 
-    return bag_pand_id, n_archetype, n_num_floor, n_total_floor_area 
+    return bag_pand_id, n_archetype, n_building_year, n_energy_label, n_num_floor, n_total_floor_area
 
 """Querying information at *building* (not building unit) level from the 3DBAG database."""
 def get3DBAG_data(bag_pand_id):
@@ -35,7 +36,7 @@ def get3DBAG_data(bag_pand_id):
 
         bag_data = j["feature"]["CityObjects"][f"NL.IMBAG.Pand.{bag_pand_id}"]['attributes']
 
-        bag_num_floor = bag_data.get('b3_bouwlagen', 0) or 1 # Number of floors - if the value is None, set it to 0
+        bag_num_floor = bag_data.get('b3_bouwlagen', 1) or 1 # Number of floors - if the value is None, set it to 1
         bag_num_floor = int(bag_num_floor)
         bag_area_walls_exp = bag_data.get('b3_opp_buitenmuur') # Area of walls exposed to exterior weather conditions
         bag_area_walls_adiab = bag_data.get('b3_opp_scheidingsmuur') # Area of adiabatic walls - shared with a neighbouring building

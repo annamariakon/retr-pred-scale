@@ -3,6 +3,7 @@
 import os
 import shutil
 import numpy as np
+import ast
 
 from geomeppy import IDF
 
@@ -21,12 +22,16 @@ def create_idf(bag_adres_id, vertices, building_height, floor_number, output_dir
     new_idf_filepath = copy_template_building_idf(template_idf_path, output_dir, bag_adres_id) 
     idf = IDF(new_idf_filepath)
 
+    if type(vertices) == str:
+        vertices = ast.literal_eval(vertices)
     # Creates initial geometry without windows
     create_building_block(idf, vertices, building_height, floor_number) 
-    
+
     # Moves geometry to (0,0,0) and matches to the default boundary conditions, i.e. outdoors, adiabatic, ground
     IDF.translate_to_origin(idf) 
-    IDF.intersect_match(idf)
+
+    # IDF.intersect_match(idf)
+    # IDF.view_model(idf)
     idf.save()
     
     return idf
@@ -45,6 +50,7 @@ def copy_template_building_idf(template_idf_path, output_dir, idf_id):
 def create_building_block(idf, coords, building_height, n_stories):
     
     coords = coords[0]
+    #print(coords)
     idf.newidfobject("BUILDING", Name="New Building Block")
     idf.add_block(name='BuildingBlock1', coordinates=coords, height=building_height, num_stories=n_stories, zoning='by_storey')
 
@@ -63,6 +69,12 @@ def assign_adiabatic_surfaces(idf, archetype, bool_ad):
         roofs = [s for s in surfacesz if s.Surface_Type == 'roof']
         floors = [s for s in surfacesz if s.Surface_Type == 'floor']
         grounds = [f for f in floors if f.Vertex_1_Zcoordinate == 0]
+
+        for wall in walls:
+            wall.Outside_Boundary_Condition = "outdoors"
+
+        for roof in roofs:
+            roof.Outside_Boundary_Condition = "outdoors"
 
         int_floor = next((f for f in floors if f.Vertex_1_Zcoordinate > 0), None) # interior floors
         if int_floor:

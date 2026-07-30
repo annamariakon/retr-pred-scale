@@ -5,7 +5,7 @@ import numpy as np
 
 import math
 
-from idf_functions.getdata_functions_building import get_floor_plan_orientation
+from INP_idf_functions.getdata_functions_building import get_floor_plan_orientation
 
 """Modify geometry information in the case that the building unit corresponds to an apartment."""
 def modify_apartment_geometry(bag_pand_id, bag_num_floor, n_num_floor, nieman_path, bag_vertices, n_archetype, pp_ht_floor, n_total_floor_area, pp_compactness_ratio):
