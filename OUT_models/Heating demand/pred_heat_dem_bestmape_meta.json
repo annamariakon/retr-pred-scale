@@ -1,0 +1,30 @@
+{
+  "one_hot_columns": [
+    "archetype_mapped_1",
+    "archetype_mapped_2",
+    "archetype_mapped_3",
+    "archetype_mapped_6",
+    "archetype_mapped_7"
+  ],
+  "numeric_columns": [
+    "idf_num_floors",
+    "pp_ht_floor",
+    "pp_orientation",
+    "idf_total_floor_area",
+    "idf_exposed_wall_area",
+    "idf_compact_ratio",
+    "idf_adiab_wall_area",
+    "r_wall_ins",
+    "r_roof_ins",
+    "r_floor_ins",
+    "u_window",
+    "shgc",
+    "inf_rate_q4",
+    "idf_ground_floor_area",
+    "idf_window_area",
+    "lighting",
+    "electrical_equipment",
+    "people"
+  ],
+  "label_columns": "heating_dem_m2"
+}

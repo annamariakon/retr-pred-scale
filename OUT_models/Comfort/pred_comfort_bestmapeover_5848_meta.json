@@ -1,0 +1,42 @@
+{
+  "one_hot_columns": [
+    "heat_system_type_gas_boiler",
+    "heat_system_type_heat_pump",
+    "heat_system_type_district_heating",
+    "heat_system_type_no_heating",
+    "cool_system_type_no_cooling",
+    "cool_system_type_dx_airco",
+    "archetype_mapped_1",
+    "archetype_mapped_2",
+    "archetype_mapped_3",
+    "archetype_mapped_6",
+    "archetype_mapped_7"
+  ],
+  "numeric_columns": [
+    "idf_num_floors",
+    "pp_ht_floor",
+    "pp_orientation",
+    "idf_total_floor_area",
+    "idf_exposed_wall_area",
+    "idf_compact_ratio",
+    "idf_adiab_wall_area",
+    "r_wall_ins",
+    "r_roof_ins",
+    "r_floor_ins",
+    "u_window",
+    "shgc",
+    "inf_rate_q4",
+    "boiler_eff",
+    "hp_cop",
+    "dx_cop",
+    "idf_ground_floor_area",
+    "idf_window_area",
+    "lighting",
+    "electrical_equipment",
+    "people"
+  ],
+  "label_columns": [
+    "int_under_cum_m2",
+    "int_over_cum_m2"
+  ]
+}

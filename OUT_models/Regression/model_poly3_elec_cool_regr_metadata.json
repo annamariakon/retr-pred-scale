@@ -1,0 +1,20 @@
+{
+  "model_file": "model_poly3_elec_cool_reg.joblib",
+  "model_type": "sklearn_pipeline",
+  "pipeline": [
+    "PolynomialFeatures(degree=3)",
+    "LinearRegression()"
+  ],
+  "x_columns": [
+    "demand/cop"
+  ],
+  "y_name": "Cooling:Electricity",
+  "x_shape": [
+    61560,
+    1
+  ],
+  "y_shape": [
+    61560
+  ],
+  "n_samples": 61560
+}
