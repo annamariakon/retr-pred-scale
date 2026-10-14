@@ -117,9 +117,9 @@ The building energy performance simulations are conducted using [EnergyPlus](htt
 ## Citation
 The source code in this repository is released under the MIT License. If you would like to refer to our work, please consider citing:
 
-```
-A. M. Koniari, C. P. Andriotis, S. Bianchi, P. G. Morato, S. Khademi and M. Overend, "Predicting building operational energy under material degradation and climate uncertainty: A sensitivity analysis," in *UNCECOMP 2025 6th ECCOMAS Thematic Conference on Uncertainty Quantification in Computational Sciences and Engineering*, 2025. 
+A. M. Koniari, C. P. Andriotis, S. Bianchi, P. G. Morato, S. Khademi and M. Overend, "Predicting building operational energy under material degradation and climate uncertainty: A sensitivity analysis," in *UNCECOMP 2025 6th ECCOMAS Thematic Conference on Uncertainty Quantification in Computational Sciences and Engineering*, 2025.
 
+```
 @inproceedings{koniari2025sens,
   author    = {Koniari, A. M. and Andriotis, C. P. and Bianchi, S. and Morato, P. G. and Khademi, S. and Overend, M.},
   title     = {Predicting building operational energy under material degradation and climate uncertainty: A sensitivity analysis},
